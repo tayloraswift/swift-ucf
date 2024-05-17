@@ -79,6 +79,31 @@ Backticks are never used to escape keywords. Therefore, in rare cases the `[subs
 
 To aid searchability, the `[let]` disambiguator is forbidden; all such properties use the `[var]` disambiguator instead.
 
+Below is an exhaustive list of all bracketed keyword sequences.
+
+| Disambiguator        | Notes |
+| -------------------- | ----- |
+| `[actor]`            |       |
+| `[associatedtype]`   |       |
+| `[enum]`             |       |
+| `[case]`             |       |
+| `[class]`            | Matches non-actor classes only. |
+| `[class func]`       |       |
+| `[class subscript]`  |       |
+| `[class var]`        |       |
+| `[deinit]`           |       |
+| `[func]`             | Also matches global operators and functions. |
+| `[init]`             |       |
+| `[macro]`            |       |
+| `[protocol]`         |       |
+| `[static func]`      | Also matches scoped operators. |
+| `[static subscript]` |       |
+| `[static var]`       |       |
+| `[struct]`           |       |
+| `[subscript]`        |       |
+| `[typealias]`        |       |
+| `[var]`              | Also matches global variables. |
+
 
 ### Backwards compatibility
 
@@ -130,3 +155,5 @@ We could potentially introduce a `[required]` disambiguator to select the requir
 ```
 /// ``Sequence.underestimatedCount [required]``
 ```
+
+Alternatively, we could generalize the syntax to support labeled expressions, such as `[requirement: true]`.
