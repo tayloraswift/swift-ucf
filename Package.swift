@@ -7,11 +7,13 @@ let package:Package = .init(
     platforms: [.macOS(.v14)],
     products: [
         .library(name: "grammar", targets: ["grammar"]),
+        .library(name: "help", targets: ["help"]),
         .library(name: "proposals", targets: ["proposals"]),
     ],
     dependencies: [],
     targets: [
         .target(name: "grammar", path: "Sources/Grammar"),
+        .target(name: "help", path: "Sources/Help"),
         .target(name: "proposals", path: "Sources/Proposals"),
     ])
 
