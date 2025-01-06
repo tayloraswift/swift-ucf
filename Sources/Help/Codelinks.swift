@@ -44,11 +44,53 @@ extension AnotherProtocol
 extension Example
 {
     public
-    func h<T>(_:T) where T:CustomStringConvertible
+    func f(x:Int, y:Substring) {}
 
     public
-    func h(_:some StringProtocol)
+    func f(x:Int, y:String) {}
 
     public
-    func h(_:any Error)
+    func g(_:[Int]) {}
+
+    public
+    func g(_:[Int: String]) {}
+
+    public
+    func g(_:Int!) {}
+
+    public
+    func g(_:[Int].Type) {}
+
+    public
+    func g(_:[Int: String].Type) {}
+
+    public
+    func g(_:Int?.Type) {}
+
+    public
+    func g(_:Int...) {}
+
+    public
+    func h(_:Set<Int>) {}
+
+    public
+    func h(_:Dictionary<Int, Int>.Index) {}
+
+    public
+    func h(_:Optional<Int>) {}
+
+    public
+    func h<T>(_:T) where T:CustomStringConvertible {}
+
+    public
+    func h(_:some StringProtocol) {}
+
+    public
+    func h(_:any Error) {}
+
+    public
+    func k(_:some Sendable & CustomStringConvertible) {}
+
+    public
+    func k(_:any CustomStringConvertible & Sendable) {}
 }

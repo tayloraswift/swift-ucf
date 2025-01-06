@@ -25,13 +25,12 @@ But in a regular markdown viewer, they will just look like this:
 
 ## Displaying part of a declaration’s name
 
-Use the slash character (`/`) in place of the period (`.`) separator to delimit the portion of a declaration’s name that you want to display. Only the portion after the last slash will be shown.
+Use the slash character (`/`) in place of the period (`.`) separator to mark where you want the visible portion of a declaration’s name to begin.
 
-```
-``String/Index``
-```
-
-``String/Index``
+| Syntax | Renders as |
+| ------ | ---------- |
+| ` ``String.Index`` ` | ``String.Index`` |
+| ` ``String/Index`` ` | ``String/Index`` |
 
 Readers using a regular markdown viewer will see the entire path, but documentation engines will only display the specified path suffix.
 
@@ -40,19 +39,15 @@ Readers using a regular markdown viewer will see the entire path, but documentat
 
 If you want to link to a specific function or subscript, you must include all of the function’s argument labels (including defaulted arguments), appending a colon (`:`) after each label, including the last one.
 
-```markdown
-``String.init(decoding:as:)``
-```
-
-``String.init(decoding:as:)``
+| Syntax | Renders as |
+| ------ | ---------- |
+| ` ``String.init(decoding:as:)`` ` | ``String.init(decoding:as:)`` |
 
 If the function takes no arguments, you can omit the parentheses.
 
-```markdown
-``Sequence.max``
-```
-
-``Sequence.max``
+| Syntax | Renders as |
+| ------ | ---------- |
+| ` ``Sequence.max`` ` | ``Sequence.max`` |
 
 However, you can add the parentheses anyway to exclude properties (and much more rarely, types) as possible matches.
 
@@ -61,40 +56,30 @@ However, you can add the parentheses anyway to exclude properties (and much more
 
 To link to an operator, spell it as-is, without replacing or escaping any special characters.
 
-```markdown
-``Int.+(_:_:)``
-``Int./(_:_:)``
-``Comparable....(_:_:)``
-```
-
-``Int.+(_:_:)``
-``Int./(_:_:)``
-``Comparable....(_:_:)``
+| Syntax | Renders as |
+| ------ | ---------- |
+| ` ``Int.+(_:_:)`` ` | ``Int.+(_:_:)`` |
+| ` ``Int./(_:_:)`` ` | ``Int./(_:_:)`` |
+| ` ``Comparable....(_:_:)`` ` | ``Comparable....(_:_:)`` |
 
 
 ## Linking to types
 
 When linking to types, don’t include the generic parameters.
 
-```markdown
-``Array``
-``Dictionary``
-```
-
-``Array``
-``Dictionary``
+| Syntax | Renders as |
+| ------ | ---------- |
+| ` ``Array`` ` | ``Array`` |
+| ` ``Dictionary`` ` | ``Dictionary`` |
 
 
 ## Linking to modules
 
 You can link to a module by using the module’s name.
 
-```markdown
-``Foundation``
-```
-
-``Foundation``
-
+| Syntax | Renders as |
+| ------ | ---------- |
+| ` ``Foundation`` ` | ``Foundation`` |
 
 ## Relative and absolute paths
 
@@ -102,7 +87,7 @@ Documentation that is attached to a declaration (such as an inline doccomment) c
 
 For example, if you are documenting a type named `Heap.Index` that contains a property named `offset`, you can use all of the following to refer to the property:
 
-```markdown
+```
 ``offset``
 ``Index/offset``
 ``Heap.Index/offset``
@@ -115,19 +100,10 @@ Matches that appear lexically closer to the declaration will take precedence ove
 
 You can prepend a module name to a codelink to fully qualify it.
 
-```
-``_Concurrency.withCheckedContinuation(isolation:function:_:)``
-```
-
-``_Concurrency.withCheckedContinuation(isolation:function:_:)``
-
-If you don’t want the module name to show up, use the slash character (`/`) to hide it.
-
-```
-``_Concurrency/withCheckedContinuation(isolation:function:_:)``
-```
-
-``_Concurrency/withCheckedContinuation(isolation:function:_:)``
+| Syntax | Renders as |
+| ------ | ---------- |
+| ` ``_Concurrency.AsyncStream`` ` | ``_Concurrency.AsyncStream`` |
+| ` ``_Concurrency/AsyncStream`` ` | ``_Concurrency/AsyncStream`` |
 
 If a module re-exports a declaration from another module, you can use the re-exporting module’s name in place of the original module’s name.
 
@@ -136,13 +112,10 @@ If a module re-exports a declaration from another module, you can use the re-exp
 
 You can prepend a slash character (`/`) to a codelink to force it to resolve from the root of the package hierarchy.
 
-```
-``/Swift/Int``
-``/Swift.Int``
-```
-
-``/Swift/Int``
-``/Swift.Int``
+| Syntax | Renders as |
+| ------ | ---------- |
+| ` ``/Swift.Int`` ` | ``/Swift.Int`` |
+| ` ``/Swift/Int`` ` | ``/Swift/Int`` |
 
 This is useful if a module contains a type with the same name as the module itself.
 
@@ -158,14 +131,10 @@ You can filter a codelink by phylum to disambiguate it. For example, if you have
 
 @Snippet(id: Codelinks, slice: PHYLUM)
 
-```markdown
-``Example.property [var]``
-``Example.property [static var]``
-```
-
-``Example.property [var]``
-``Example.property [static var]``
-
+| Syntax | Renders as |
+| ------ | ---------- |
+| ` ``Example.property [var]`` ` | ``Example.property [var]`` |
+| ` ``Example.property [static var]`` ` | ``Example.property [static var]`` |
 
 Below is an exhaustive list of all supported phylum filters.
 
@@ -199,13 +168,10 @@ You can use `[requirement]` (or `[requirement: true]`) to match only protocol re
 
 @Snippet(id: Codelinks, slice: REQUIREMENTS)
 
-```markdown
-``ExampleProtocol.f [requirement]``
-``ExampleProtocol.f [requirement: false]``
-```
-
-``ExampleProtocol.f [requirement]``
-``ExampleProtocol.f [requirement: false]``
+| Syntax | Renders as |
+| ------ | ---------- |
+| ` ``ExampleProtocol.f [requirement]`` ` | ``ExampleProtocol.f [requirement]`` |
+| ` ``ExampleProtocol.f [requirement: false]`` ` | ``ExampleProtocol.f [requirement: false]`` |
 
 
 ### Multiple filters
@@ -214,17 +180,12 @@ You can specify multiple filters by separating them with commas.
 
 @Snippet(id: Codelinks, slice: REQUIREMENTS_AND_PHYLA)
 
-```markdown
-``AnotherProtocol.g [func, requirement]``
-``AnotherProtocol.g [func, requirement: false]``
-``AnotherProtocol.g [static func, requirement]``
-``AnotherProtocol.g [static func, requirement: false]``
-```
-
-``AnotherProtocol.g [func, requirement]``
-``AnotherProtocol.g [func, requirement: false]``
-``AnotherProtocol.g [static func, requirement]``
-``AnotherProtocol.g [static func, requirement: false]``
+| Syntax | Renders as |
+| ------ | ---------- |
+| ` ``AnotherProtocol.g [func, requirement]`` ` | ``AnotherProtocol.g [func, requirement]`` |
+| ` ``AnotherProtocol.g [func, requirement: false]`` ` | ``AnotherProtocol.g [func, requirement: false]`` |
+| ` ``AnotherProtocol.g [static func, requirement]`` ` | ``AnotherProtocol.g [static func, requirement]`` |
+| ` ``AnotherProtocol.g [static func, requirement: false]`` ` | ``AnotherProtocol.g [static func, requirement: false]`` |
 
 
 ## Disambiguating overloads
@@ -233,40 +194,91 @@ You can disambiguate overloads by specifying the types in their function signatu
 
 To disambiguate by argument types, write the types in parentheses after the function name and a space.
 
-```markdown
-``Int.init(_:) (Float)``
-``Int.init(_:) (Double)``
-```
+| Syntax | Renders as |
+| ------ | ---------- |
+| ` ``Int.init(_:) (Float)`` ` | ``Int.init(_:) (Float)`` |
+| ` ``Int.init(_:) (Double)`` ` | ``Int.init(_:) (Double)`` |
 
-``Int.init(_:) (Float)``
-``Int.init(_:) (Double)``
-
-Do not include modifiers such as `inout`, `borrowing`, or `consuming` in the type signature.
+Do not include modifiers such as `inout`, `borrowing`, or `consuming`, or attributes such as `@escaping` or `@Sendable` in the type signature.
 
 
 ### Partial signatures
 
 If overloaded functions have multiple arguments, you can specify only the ones that are different, and omit the rest by using the underscore character (`_`).
 
-```markdown
-``String.init(cString:encoding:) (UnsafePointer<CChar>, _)``
-``String.init(cString:encoding:) ([CChar], _)``
-```
+| Syntax | Renders as |
+| ------ | ---------- |
+| ` ``Example.f(x:y:) (_, String)`` ` | ``Example.f(x:y:) (_, String)`` |
+| ` ``Example.f(x:y:) (_, Substring)`` ` | ``Example.f(x:y:) (_, Substring)`` |
 
-``String.init(cString:encoding:) (UnsafePointer<CChar>, _)``
-``String.init(cString:encoding:) ([CChar], _)``
+You can only use placeholder types at the top level of the signature, not nested within other types.
+
+
+### Arrays, Dictionaries, and Optionals
+
+When specifying an ``Array`` or ``Dictionary`` type, use square brackets (`[]`) and colons (`:`) to specify the type arguments. Similarly, use a postfix question mark (`?`) to denote ``Optional`` types, or a postfix exclamation mark (`!`) for implicitly unwrapped optionals.
+
+| Syntax | Renders as |
+| ------ | ---------- |
+| ` ``Example.g(_:) ([Int])`` ` | ``Example.g(_:) ([Int])`` |
+| ` ``Example.g(_:) ([Int: String])`` ` | ``Example.g(_:) ([Int: String])`` |
+| ` ``Example.g(_:) (Int!)`` ` | ``Example.g(_:) (Int!)`` |
+| ` ``Example.g(_:) ([Int].Type)`` ` | ``Example.g(_:) ([Int].Type)`` |
+| ` ``Example.g(_:) ([Int: String].Type)`` ` | ``Example.g(_:) ([Int: String].Type)`` |
+| ` ``Example.g(_:) (Int?.Type)`` ` | ``Example.g(_:) (Int?.Type)`` |
+
+For readability, you can include spaces around the colons, but not between the other special characters.
+
+
+### Variadic arguments
+
+Use a postfix ellipsis (`...`) to denote variadic arguments.
+
+| Syntax | Renders as |
+| ------ | ---------- |
+| ` ``Example.g(_:) (Int...)`` ` | ``Example.g(_:) (Int...)`` |
+
+
+### Type arguments
+
+When specifying a generic type, use angle brackets (`<>`) to enclose the type arguments.
+
+| Syntax | Renders as |
+| ------ | ---------- |
+| ` ``Example.h(_:) (Set<Int>)`` ` | ``Example.h(_:) (Set<Int>)`` |
+| ` ``Example.h(_:) (Dictionary<Int, Int>.Index)`` ` | ``Example.h(_:) (Dictionary<Int, Int>.Index)`` |
+| ` ``Example.h(_:) (Int?)`` ` | ``Example.h(_:) (Int?)`` |
+
+Always use the shorthand form of ``Array``, ``Dictionary``, and ``Optional`` types, even if the source declaration uses the full type name.
 
 
 ### Generics and existentials
 
 Do not include the `any` keyword when specifying existential types, just the protocol name. Similarly, do not include the `some` keyword when specifying generic types.
 
-```markdown
-``Example.h(_:) (StringProtocol)``
-``Example.h(_:) (Error)``
-```
+| Syntax | Renders as |
+| ------ | ---------- |
+| ` ``Example.h(_:) (StringProtocol)`` ` | ``Example.h(_:) (StringProtocol)`` |
+| ` ``Example.h(_:) (Error)`` ` | ``Example.h(_:) (Error)`` |
 
-``Example.h(_:) (StringProtocol)``
-``Example.h(_:) (Error)``
+If the source declaration used a named generic parameter, you must use that same name in the codelink, even if it has an equivalent inline `some` spelling.
 
-If the source declaration
+| Syntax | Renders as |
+| ------ | ---------- |
+| ` ``Example.h(_:) (T)`` ` | ``Example.h(_:) (T)`` |
+
+This means that renaming generic parameters, although ABI-compatible, is documentation-breaking.
+
+
+### Protocol composition types
+
+When specifying a protocol composition type, use the `&` character to separate the protocols.
+
+| Syntax | Renders as |
+| ------ | ---------- |
+| ` ``Example.k(_:) (Sendable & CustomStringConvertible)`` ` | ``Example.k(_:) (Sendable & CustomStringConvertible)`` |
+| ` ``Example.k(_:) (CustomStringConvertible & Sendable)`` ` | ``Example.k(_:) (CustomStringConvertible & Sendable)`` |
+
+The order of the protocols is significant, and must match the order in the source declaration.
+
+As with renaming generic parameters, reordering protocols in a composition type is documentation-breaking, even though it is ABI-compatible.
