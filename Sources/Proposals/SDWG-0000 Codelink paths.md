@@ -74,11 +74,6 @@ Trailing slashes are allowed in vector links, and have no effect on the appearan
 | ` ``Real./(_:_:)/`` `  | ``Real./(_:_:)/``  | `["Real", "/(_:_:)"]`   |
 
 
-### Trailing parentheses
-
-The unified codelink format always **ignores** empty trailing parentheses. This means it is possible to refer to a property named `x` with a codelink spelled ` ``x()`` `, even though it could never be called that way in source code.
-
-
 ### Namespacing
 
 The unified codelink format uses implicit namespacing, and behaves similarly to namespacing in Swift source code. However, unlike Swift source code, it also supports explicit namespacing using the `/` prefix.
