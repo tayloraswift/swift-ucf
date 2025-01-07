@@ -4,20 +4,22 @@ A full disambiguator consists of an optional type signature pattern, and an opti
 
 ```ebnf
 Disambiguator ::= \s + SignaturePattern Clauses ? | Clauses ;
+DisambiguationSuffix ::= SignatureSuffix Clauses ? | Clauses
 ```
 
 
 ## Filter clauses
 
 ```ebnf
-Clauses ::= \s + '[' Clause ( ',' Clause ) * ']' ;
+Clauses ::= Space '[' Clause ( ',' Clause ) * ']' ;
 Clause ::= AlphanumericWord + ( ':' AlphanumericWord + ) ? ;
+Space ::= \s + | '-' ;
 ```
 
 Note that the leading whitespace is considered part of the filter.
 
 ```ebnf
-AlphanumericWord ::= \s * [0-9A-Za-z] + \s * ;
+AlphanumericWord ::= Space ? [0-9A-Za-z] + Space ? ;
 ```
 
 
@@ -26,8 +28,9 @@ AlphanumericWord ::= \s * [0-9A-Za-z] + \s * ;
 A Unidoc-style disambiguator (`SignaturePattern`) always begins with a space character, but UCF also supports the DocC-style syntax which is joined to the base path by a hyphen character (`SignatureSuffix`).
 
 ```ebnf
-SignaturePattern ::= FunctionPattern | '->' \s * TypePattern ;
+SignaturePattern ::= FunctionPattern | Arrow TypePattern ;
 SignatureSuffix ::= '-' FunctionPattern | '->' TypePattern ;
+Arrow ::= \s * '->' \s * ;
 ```
 
 The remaining productions are shared by both syntaxes.
@@ -44,8 +47,8 @@ PostfixOperator ::= '?' | '!' | '.Type' | '...' ;
 A “function” type consists of a `TuplePattern` followed by an optional return arrow (`->`) and a `TypePattern`. If only the tuple is present, the “function” type is a tuple type, and if the tuple contains only one element, the parentheses are discarded and the type inside is promoted to the next level of the AST.
 
 ```ebnf
-FunctionPattern ::= TuplePattern ( \s * '->' \s * TypePattern ) ? ;
-TuplePattern ::= '(' ( TypePattern ( ',' TypePattern ) * ) ? ')' ;
+FunctionPattern ::= TuplePattern ( Arrow TypePattern ) ? ;
+TuplePattern ::= '(' \s * ( TypePattern ( ',' TypePattern ) * \s * ) ? ')' ;
 ```
 
 The grammar is specified this way for parser performance, so that it does not need to backtrack after parsing the leading tuple.
@@ -65,7 +68,7 @@ NominalPattern ::= PathComponent ( '.' PathComponent ) * ;
 PathComponent ::= Identifier GenericArguments ? ;
 GenericArguments ::=
     '<'
-    TypePattern ( \s * ',' \s * TypePattern ) *
+    \s * TypePattern ( \s * ',' \s * TypePattern ) * \s *
     '>' ;
 ```
 
