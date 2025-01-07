@@ -199,6 +199,20 @@ To disambiguate by argument types, write the types in parentheses after the func
 | ` ``Int.init(_:) (Float)`` ` | ``Int.init(_:) (Float)`` |
 | ` ``Int.init(_:) (Double)`` ` | ``Int.init(_:) (Double)`` |
 
+If you like, you can use a hyphen (`-`) instead of a space.
+
+| Syntax | Renders as |
+| ------ | ---------- |
+| ` ``Int.init(_:)-(Float)`` ` | ``Int.init(_:)-(Float)`` |
+| ` ``Int.init(_:)-(Double)`` ` | ``Int.init(_:)-(Double)`` |
+
+The hyphen-joined form is useful when you want to use custom link text, which requires encoding the target as a URL.
+
+| Syntax | Renders as |
+| ------ | ---------- |
+| ` [custom text](Int.init(_:)-(Float)) ` | [custom text](Int.init(_:)-(Float)) |
+| ` [custom text](Int.init(_:)-(Double)) ` | [custom text](Int.init(_:)-(Double)) |
+
 Do not include modifiers such as `inout`, `borrowing`, or `consuming`, or attributes such as `@escaping` or `@Sendable` in the type signature.
 
 
@@ -211,7 +225,8 @@ If overloaded functions have multiple arguments, you can specify only the ones t
 | ` ``Example.f(x:y:) (_, String)`` ` | ``Example.f(x:y:) (_, String)`` |
 | ` ``Example.f(x:y:) (_, Substring)`` ` | ``Example.f(x:y:) (_, Substring)`` |
 
-You can only use placeholder types at the top level of the signature, not nested within other types.
+>   Important:
+>   You can only use placeholder types at the top level of the signature, not nested within other types.
 
 
 ### Arrays, Dictionaries, and Optionals
@@ -246,10 +261,13 @@ When specifying a generic type, use angle brackets (`<>`) to enclose the type ar
 | Syntax | Renders as |
 | ------ | ---------- |
 | ` ``Example.h(_:) (Set<Int>)`` ` | ``Example.h(_:) (Set<Int>)`` |
-| ` ``Example.h(_:) (Dictionary<Int, Int>.Index)`` ` | ``Example.h(_:) (Dictionary<Int, Int>.Index)`` |
 | ` ``Example.h(_:) (Int?)`` ` | ``Example.h(_:) (Int?)`` |
+| ` ``Example.h(_:) (Dictionary<Int, Int>.Index)`` ` | ``Example.h(_:) (Dictionary<Int, Int>.Index)`` |
 
 Always use the shorthand form of ``Array``, ``Dictionary``, and ``Optional`` types, even if the source declaration uses the full type name.
+
+>   Note:
+>   Although `Dictionary<Int, Int>.Type` metatype can (and therefore must) be resugared to `[Int: Int].Type`, the `Dictionary<Int, Int>.Index` type cannot be rewritten as `[Int: Int].Index` as this is not valid Swift syntax.
 
 
 ### Generics and existentials
@@ -282,3 +300,122 @@ When specifying a protocol composition type, use the `&` character to separate t
 The order of the protocols is significant, and must match the order in the source declaration.
 
 As with renaming generic parameters, reordering protocols in a composition type is documentation-breaking, even though it is ABI-compatible.
+
+
+### Tuple types
+
+When specifying a tuple type, use parentheses to enclose the element types. A single-element tuple is equivalent to its element type.
+
+| Syntax | Renders as |
+| ------ | ---------- |
+| ` ``Example.l(_:) (())`` ` | ``Example.l(_:) (())`` |
+| ` ``Example.l(_:) ((Int))`` ` | ``Example.l(_:) ((Int))`` |
+| ` ``Example.l(_:) ((Int, Int))`` ` | ``Example.l(_:) ((Int, Int))`` |
+
+
+### Function types
+
+When specifying a function type, use the `->` token to provide the return type. Do not include function attributes, or keywords such as `throws`, `rethrows`, or `async`.
+
+| Syntax | Renders as |
+| ------ | ---------- |
+| ` ``Example.m(_:) ((Int) -> Int)`` ` | ``Example.m(_:) ((Int) -> Int)`` |
+| ` ``Example.m(_:) ((Int) -> ())`` ` | ``Example.m(_:) ((Int) -> ())`` |
+
+
+### Parameter packs
+
+To specify a parameter pack expansion, spell a single instance of the parameter pack. Do not include a trailing ellipsis (as it is not a variadic argument), and do not include the `repeat` or `each` keywords.
+
+| Syntax | Renders as |
+| ------ | ---------- |
+| ` ``Example.n(_:) ([T])`` ` | ``Example.n(_:) ([T])`` |
+| ` ``Example.n(_:) ([T: Int])`` ` | ``Example.n(_:) ([T: Int])`` |
+
+
+### Noncopyable types
+
+Spell types with suppressed conformances with a leading tilde (`~`) character. Don’t include the ownership specifier.
+
+| Syntax | Renders as |
+| ------ | ---------- |
+| ` ``Example.n(_:) (~Copyable)`` ` | ``Example.n(_:) (~Copyable)`` |
+
+
+### Typealiases and `Self`
+
+If the original declaration uses a typealias, you must use the same typealias in the codelink.
+
+The `Self` type is not a typealias, and is only allowed when it is truly dynamic, such as in a class or protocol member. If `Self` is an [SE-0068](https://github.com/swiftlang/swift-evolution/blob/main/proposals/0068-universal-self.md) static type, you must replace it with the actual type name, including any generic parameters.
+
+| Syntax | Renders as |
+| ------ | ---------- |
+| ` ``Example.o(_:) (Example)`` ` | ``Example.o(_:) (Example)`` |
+| ` ``Example.o(_:) (UTF8.Type)`` ` | ``Example.o(_:) (UTF8.Type)`` |
+| ` ``Example.o(_:) (Void)`` ` | ``Example.o(_:) (Void)`` |
+| ` ``ExampleProtocol.o(_:) (Self)`` ` | ``ExampleProtocol.o(_:) (Self)`` |
+| ` ``ExampleProtocol.o(_:) (Void)`` ` | ``ExampleProtocol.o(_:) (Void)`` |
+
+
+## Disambiguating return types
+
+Overloading on return type is discouraged in Swift, but it is possible to disambiguate by return type similarly to how you disambiguate by argument types.
+
+For the purposes of link resolution, function outputs are treated as splatted tuples, and individual element types can be ignored using the underscore character (`_`).
+
+Specify return types using the `->` token. The spaces around the arrow are optional.
+
+| Syntax | Renders as |
+| ------ | ---------- |
+| ` ``Example.r(_:) -> ()`` ` | ``Example.r(_:) -> ()`` |
+| ` ``Example.r(_:) -> Int`` ` | ``Example.r(_:) -> Int`` |
+| ` ``Example.r(_:) -> (Int, String)`` ` | ``Example.r(_:) -> (Int, String)`` |
+
+If you replace all of the types with underscores, the codelink will match any overload that returns a tuple of that length.
+
+| Syntax | Renders as |
+| ------ | ---------- |
+| ` ``Example.r(_:) -> _`` ` | ``Example.r(_:) -> _`` |
+| ` ``Example.r(_:) -> (_, _)`` ` | ``Example.r(_:) -> (_, _)`` |
+
+A single underscore matches only overloads that return a scalar type. To express a true wildcard, simply omit the entire return type.
+
+
+### Methods and subscripts
+
+If needed, you can provide patterns for both the argument types and the return type.
+
+| Syntax | Renders as |
+| ------ | ---------- |
+| ` ``Example.s(_:) (Int) -> (Int, String)`` ` | ``Example.s(_:) (Int) -> (Int, String)`` |
+| ` ``Example.s(_:) (String) -> (Int, String)`` ` | ``Example.s(_:) (String) -> (Int, String)`` |
+
+
+### Initializers
+
+Even though initializers formally return `Self`, disambiguating initializers by return type is not supported.
+
+
+### Properties
+
+For the purposes of link resolution, properties are treated as functions with no arguments and a return type of the property’s own type.
+
+| Syntax | Renders as |
+| ------ | ---------- |
+| ` ``ExampleProtocol.x -> Int`` ` | ``ExampleProtocol.x -> Int`` |
+| ` ``ExampleProtocol.x -> [Int]`` ` | ``ExampleProtocol.x -> [Int]`` |
+| ` ``ExampleProtocol.x -> (_, Int)`` ` | ``ExampleProtocol.x -> (_, Int)`` |
+
+
+## Combining multiple filters
+
+If you need to use filters alongside signature patterns, put the filters in brackets (`[]`) after the signature.
+
+| Syntax | Renders as |
+| ------ | ---------- |
+| ` ``ExampleProtocol/g(_:) (Int32) [requirement]`` ` | ``ExampleProtocol/g(_:) (Int32) [requirement]`` |
+| ` ``ExampleProtocol/g(_:) (Int64) -> () [requirement]`` ` | ``ExampleProtocol/g(_:) (Int64) -> () [requirement]`` |
+| ` ``ExampleProtocol/g(_:) (Int64) -> Int64 [requirement]`` ` | ``ExampleProtocol/g(_:) (Int64) -> Int64 [requirement]`` |
+| ` ``ExampleProtocol/g(_:) (Int32) [requirement: false]`` ` | ``ExampleProtocol/g(_:) (Int32) [requirement: false]`` |
+| ` ``ExampleProtocol/g(_:) (Int64) -> () [requirement: false]`` ` | ``ExampleProtocol/g(_:) (Int64) -> () [requirement: false]`` |
+| ` ``ExampleProtocol/g(_:) (Int64) -> Int64 [requirement: false]`` ` | ``ExampleProtocol/g(_:) (Int64) -> Int64 [requirement: false]`` |
