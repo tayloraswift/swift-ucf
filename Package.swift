@@ -6,7 +6,6 @@ let package:Package = .init(
     name: "Swift unified codelink format",
     platforms: [.macOS(.v14)],
     products: [
-        .library(name: "grammar", targets: ["grammar"]),
         .library(name: "help", targets: ["help"]),
         .library(name: "proposals", targets: ["proposals"]),
 
@@ -18,7 +17,6 @@ let package:Package = .init(
         .package(url: "https://github.com/tayloraswift/swift-grammar", from: "0.4.0"),
     ],
     targets: [
-        .target(name: "grammar"),
         .target(name: "help"),
         .target(name: "proposals"),
 

@@ -430,6 +430,6 @@ If you need to use filters alongside signature patterns, put the filters in brac
 
 ## Further reading
 
--   <doc://grammar/documentation/grammar/Grammar>
+-   <doc://UCF/documentation/UCF/Grammar>
 -   <doc://proposals/documentation/proposals/SDWG-0000-Codelink-paths>
 -   <doc://proposals/documentation/proposals/SDWG-0001-Phylum-based-disambiguators>
