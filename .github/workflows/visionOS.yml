@@ -10,5 +10,5 @@ jobs:
     build:
         uses: tayloraswift/swift-device-action/.github/workflows/build.yml@master
         with:
-            xcode-scheme: 'swift-ucf-Package'
+            xcode-scheme: 'Swift unified codelink format-Package'
             destination: ${{ github.workflow }}
