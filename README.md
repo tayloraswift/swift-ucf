@@ -7,7 +7,7 @@
 
 </div>
 
-This repository contains the specifications and reference implementation for the [Swift unified codelink format](https://swiftinit.org/docs/swift-ucf/proposals) (UCF).
+This repository contains the specifications and reference implementation for the [Swift Unified Codelink Format](https://swiftinit.org/docs/swift-ucf/help/codelinks) (UCF).
 
 <div align="center">
 
