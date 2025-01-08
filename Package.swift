@@ -12,9 +12,9 @@ let package:Package = .init(
     ],
     dependencies: [],
     targets: [
-        .target(name: "grammar", path: "Sources/Grammar"),
-        .target(name: "help", path: "Sources/Help"),
-        .target(name: "proposals", path: "Sources/Proposals"),
+        .target(name: "grammar"),
+        .target(name: "help"),
+        .target(name: "proposals"),
     ])
 
 for target:PackageDescription.Target in package.targets

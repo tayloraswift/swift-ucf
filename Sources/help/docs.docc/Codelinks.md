@@ -1,6 +1,6 @@
 # Codelinks
 
-**Codelinks**, also known as **symbol links**, are a markdown shorthand for referencing Swift declarations in documentation.
+**Codelinks**, also known as **symbol links**, are a Markdown shorthand for referencing Swift declarations in documentation. Documentation engines will automatically resolve and expand these references into hyperlinks to the corresponding symbols.
 
 You write codelinks using double backticks. Here are some examples:
 
@@ -16,7 +16,7 @@ A Swift documentation engine, such as [Unidoc](https://github.com/tayloraswift/s
 ``String``
 ``String.Index``
 
-But in a regular markdown viewer, they will just look like this:
+But in a regular Markdown viewer, they will just look like this:
 
 `Int`
 `String`
@@ -32,7 +32,7 @@ Use the slash character (`/`) in place of the period (`.`) separator to mark whe
 | ` ``String.Index`` ` | ``String.Index`` |
 | ` ``String/Index`` ` | ``String/Index`` |
 
-Readers using a regular markdown viewer will see the entire path, but documentation engines will only display the specified path suffix.
+Readers using a regular Markdown viewer will see the entire path, but documentation engines will only display the specified path suffix.
 
 
 ## Linking to functions and subscripts
@@ -135,6 +135,13 @@ You can filter a codelink by phylum to disambiguate it. For example, if you have
 | ------ | ---------- |
 | ` ``Example.property [var]`` ` | ``Example.property [var]`` |
 | ` ``Example.property [static var]`` ` | ``Example.property [static var]`` |
+
+Alternatively, you can replace the spaces with hyphens (`-`) to encode the codelink with URL-friendly characters. This is useful when you want to display custom link text.
+
+| Syntax | Renders as |
+| ------ | ---------- |
+| ` [custom text](Example.property-[var]) ` | [custom text](Example.property-[var]) |
+| ` [custom text](Example.property-[static-var]) ` | [custom text](Example.property-[static-var]) |
 
 Below is an exhaustive list of all supported phylum filters.
 
@@ -419,3 +426,10 @@ If you need to use filters alongside signature patterns, put the filters in brac
 | ` ``ExampleProtocol/g(_:) (Int32) [requirement: false]`` ` | ``ExampleProtocol/g(_:) (Int32) [requirement: false]`` |
 | ` ``ExampleProtocol/g(_:) (Int64) -> () [requirement: false]`` ` | ``ExampleProtocol/g(_:) (Int64) -> () [requirement: false]`` |
 | ` ``ExampleProtocol/g(_:) (Int64) -> Int64 [requirement: false]`` ` | ``ExampleProtocol/g(_:) (Int64) -> Int64 [requirement: false]`` |
+
+
+## Further reading
+
+-   <doc://grammar/documentation/grammar/Grammar>
+-   <doc://proposals/documentation/proposals/SDWG-0000-Codelink-paths>
+-   <doc://proposals/documentation/proposals/SDWG-0001-Phylum-based-disambiguators>

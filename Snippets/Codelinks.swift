@@ -1,1 +1,1 @@
-../Sources/Help/Codelinks.swift
+../Sources/help/Codelinks.swift

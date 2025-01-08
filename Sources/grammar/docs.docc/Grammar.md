@@ -4,7 +4,7 @@ A full disambiguator consists of an optional type signature pattern, and an opti
 
 ```ebnf
 Disambiguator ::= \s + SignaturePattern Clauses ? | Clauses ;
-DisambiguationSuffix ::= SignatureSuffix Clauses ? | Clauses
+DisambiguationSuffix ::= SignatureSuffix Clauses ? | Clauses ;
 ```
 
 
