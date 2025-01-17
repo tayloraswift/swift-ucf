@@ -76,11 +76,12 @@ extension UCF.Selector:CustomStringConvertible
                         string.append(", ")
                     }
 
-                    string.append("\(condition.keywords)")
+                    string.append("\(condition.label)")
 
-                    if !condition.expected
+                    if  let value:String = condition.value
                     {
-                        string.append(": false")
+                        string.append(": ")
+                        string.append(value)
                     }
                 }
                 string.append("]")

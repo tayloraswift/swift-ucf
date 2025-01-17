@@ -125,10 +125,10 @@ extension UCF.Selector.Suffix
         if  let filter:UCF.LegacyFilter
         {
             if  case nil = hash,
-                let keywords:UCF.ConditionFilter.Keywords = .init(legacy: filter)
+                let condition:UCF.Condition = .init(legacy: filter)
             {
                 return .unidoc(.init(
-                    conditions: [.init(keywords: keywords, expected: true)],
+                    conditions: [.init(label: condition, value: nil)],
                     signature: nil))
             }
             else

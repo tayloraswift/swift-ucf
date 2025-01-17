@@ -8,13 +8,29 @@ struct CodelinkDisambiguators:ParsingSuite
     typealias Format = UCF.Selector
 
     @Test
+    static func Ignore() throws
+    {
+        let link:UCF.Selector = try Self.roundtrip("""
+            Fake [ignore when: macOS, ignore unless: Linux]
+            """)
+        #expect(link.base == .relative)
+        #expect(link.path.components == ["Fake"])
+        #expect(link.suffix == .unidoc(.init(
+            conditions: [
+                .init(label: .ignore_when, value: "macOS"),
+                .init(label: .ignore_unless, value: "Linux")
+            ],
+            signature: nil)))
+    }
+
+    @Test
     static func Enum() throws
     {
         let link:UCF.Selector = try Self.roundtrip("Fake [enum]")
         #expect(link.base == .relative)
         #expect(link.path.components == ["Fake"])
         #expect(!link.path.hasTrailingParentheses)
-        #expect(link.suffix == .keywords(.enum))
+        #expect(link.suffix == [.enum])
     }
     @Test
     static func UncannyHash() throws
@@ -34,7 +50,7 @@ struct CodelinkDisambiguators:ParsingSuite
         #expect(link.base == .relative)
         #expect(link.path.components == ["Fake", "max"])
         #expect(!link.path.hasTrailingParentheses)
-        #expect(link.suffix == .keywords(.class_var))
+        #expect(link.suffix == [.class_var])
     }
     @Test
     static func ClassVarRequirement() throws
@@ -45,8 +61,8 @@ struct CodelinkDisambiguators:ParsingSuite
         #expect(!link.path.hasTrailingParentheses)
         #expect(link.suffix == .unidoc(.init(
             conditions: [
-                .init(keywords: .class_var, expected: true),
-                .init(keywords: .requirement, expected: true)
+                .init(label: .class_var, value: nil),
+                .init(label: .requirement, value: nil)
             ],
             signature: nil)))
     }
@@ -61,8 +77,8 @@ struct CodelinkDisambiguators:ParsingSuite
         #expect(!link.path.hasTrailingParentheses)
         #expect(link.suffix == .unidoc(.init(
             conditions: [
-                .init(keywords: .class_var, expected: false),
-                .init(keywords: .requirement, expected: false)
+                .init(label: .class_var, value: "false"),
+                .init(label: .requirement, value: "false")
             ],
             signature: nil)))
     }
@@ -158,8 +174,8 @@ struct CodelinkDisambiguators:ParsingSuite
         #expect(link.path.hasTrailingParentheses)
         #expect(link.suffix == .unidoc(.init(
             conditions: [
-                .init(keywords: .static_func, expected: false),
-                .init(keywords: .requirement, expected: true)
+                .init(label: .static_func, value: "false"),
+                .init(label: .requirement, value: "true")
             ],
             signature: .function([nil, "Int"], []))))
     }

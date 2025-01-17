@@ -25,7 +25,7 @@ struct CodelinkLegacyDocC:ParsingSuite
         #expect(link.path.components == ["Sloth", "Color"])
         #expect(link.path.visible == ["Color"])
         #expect(!link.path.hasTrailingParentheses)
-        #expect(link.suffix == .keywords(.enum))
+        #expect(link.suffix == [.enum])
     }
     @Test
     static func FilterInterior() throws
