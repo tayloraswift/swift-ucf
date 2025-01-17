@@ -4,15 +4,15 @@ extension UCF
     struct ConditionFilter:Equatable, Hashable, Sendable
     {
         public
-        let keywords:Keywords
+        let label:Condition
         public
-        let expected:Bool
+        let value:String?
 
         @inlinable public
-        init(keywords:Keywords, expected:Bool)
+        init(label:Condition, value:String? = nil)
         {
-            self.keywords = keywords
-            self.expected = expected
+            self.label = label
+            self.value = value
         }
     }
 }

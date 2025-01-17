@@ -30,30 +30,13 @@ extension UCF.Disambiguator
         {
             //  The parser already collapses whitespace.
             guard
-            let keywords:UCF.ConditionFilter.Keywords = .init(clause.0)
+            let condition:UCF.Condition = .init(clause.0)
             else
             {
                 return nil
             }
 
-            let expected:Bool
-            if  let value:String = clause.1
-            {
-                guard
-                let value:Bool = .init(value)
-                else
-                {
-                    return nil
-                }
-
-                expected = value
-            }
-            else
-            {
-                expected = true
-            }
-
-            conditions.append(.init(keywords: keywords, expected: expected))
+            conditions.append(.init(label: condition, value: clause.1))
         }
 
         //  If we got this far, the conditions (if any) were all valid and we can go ahead

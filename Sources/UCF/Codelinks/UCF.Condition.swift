@@ -1,7 +1,7 @@
-extension UCF.ConditionFilter
+extension UCF
 {
     @frozen public
-    enum Keywords:Substring, Equatable, Hashable, Sendable
+    enum Condition:Substring, Equatable, Hashable, Sendable
     {
         case  actor             = "actor"
         case `associatedtype`   = "associatedtype"
@@ -24,10 +24,13 @@ extension UCF.ConditionFilter
         case `typealias`        = "typealias"
         case `var`              = "var"
 
+        case async              = "async"
         case requirement        = "requirement"
+        case ignore_when        = "ignore when"
+        case ignore_unless      = "ignore unless"
     }
 }
-extension UCF.ConditionFilter.Keywords
+extension UCF.Condition
 {
     @inlinable public
     init?(legacy:UCF.LegacyFilter)
@@ -56,12 +59,12 @@ extension UCF.ConditionFilter.Keywords
         }
     }
 }
-extension UCF.ConditionFilter.Keywords:CustomStringConvertible
+extension UCF.Condition:CustomStringConvertible
 {
     @inlinable public
     var description:String { .init(self.rawValue) }
 }
-extension UCF.ConditionFilter.Keywords:LosslessStringConvertible
+extension UCF.Condition:LosslessStringConvertible
 {
     @inlinable public
     init?(_ description:String)
