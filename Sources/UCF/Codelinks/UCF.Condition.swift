@@ -27,7 +27,6 @@ extension UCF
         case async              = "async"
         case requirement        = "requirement"
         case ignore_when        = "ignore when"
-        case ignore_unless      = "ignore unless"
     }
 }
 extension UCF.Condition
