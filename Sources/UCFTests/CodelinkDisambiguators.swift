@@ -11,14 +11,14 @@ struct CodelinkDisambiguators:ParsingSuite
     static func Ignore() throws
     {
         let link:UCF.Selector = try Self.roundtrip("""
-            Fake [ignore when: macOS, ignore unless: Linux]
+            Fake [ignore when: macOS, ignore when: Linux]
             """)
         #expect(link.base == .relative)
         #expect(link.path.components == ["Fake"])
         #expect(link.suffix == .unidoc(.init(
             conditions: [
                 .init(label: .ignore_when, value: "macOS"),
-                .init(label: .ignore_unless, value: "Linux")
+                .init(label: .ignore_when, value: "Linux")
             ],
             signature: nil)))
     }
